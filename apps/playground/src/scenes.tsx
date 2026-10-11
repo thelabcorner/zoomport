@@ -19,7 +19,7 @@ export function VectorScene({ responsive = false }: { responsive?: boolean }) {
     <rect width="1280" height="820" fill="#ffffff"/>
     <rect width="1280" height="820" fill="url(#precision-grid)" opacity=".52"/>
     <path d="M0 60H1280" stroke="#d8dad6"/>
-    <text x="48" y="37" fontFamily="Inter, sans-serif" fontWeight="650" fontSize="15" fill="#181a18">ZOOMPORT®</text>
+    <text x="48" y="37" fontFamily="Inter, sans-serif" fontWeight="650" fontSize="15" fill="#181a18">ZOOMPORT™</text>
     <text x="505" y="37" fontFamily="Inter, sans-serif" fontSize="12" fill="#727870">DESIGN SYSTEM / 001</text>
     <text x="1225" y="37" fontFamily="Inter, sans-serif" fontSize="12" fill="#727870" textAnchor="end">SCALE IS A SUPERPOWER</text>
     <text x="49" y="140" fontFamily="Inter, sans-serif" fontSize="15" fontWeight="600" fill="#6b706a">THE CAMERA EXPERIMENT</text>
