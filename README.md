@@ -6,6 +6,10 @@ Headless pan/zoom camera physics with React components, vanilla DOM/SVG adapters
 
 > **Status: pre-release**. The first implementation is functional, with unit tests and a playground. Do not assume verified visual parity on Safari, mobile pinch, high-DPI panels, or production GPU workloads until browser-matrix evidence is published.
 
+**[Open the live playground](https://thelabcorner.github.io/zoomport/)** · [100K-object performance lab](https://thelabcorner.github.io/zoomport/culling.html) · [Vanilla JavaScript demo](https://thelabcorner.github.io/zoomport/vanilla.html)
+
+The demos run entirely in the browser and deploy from `.github/workflows/pages.yml`. They use the repository's actual camera, input, DOM, SVG, Canvas and culling code, not a separate simulated implementation.
+
 ## Why ZoomPort?
 
 A pan/zoom *camera* should not dictate how its content is drawn. ZoomPort decouples world-space coordinates, gesture input, interpolation, and constraints from the renderer. The exact same camera drives CSS-transformed DOM, repaint-aware DOM, SVG groups, native SVG viewBox geometry, Canvas 2D, and custom WebGL/WebGPU scenes.

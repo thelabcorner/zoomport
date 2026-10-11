@@ -2,7 +2,7 @@ import * as React from "react"
 import { createRoot } from "react-dom/client"
 import {
   ArrowDownRight, ArrowUpRight, Check, ChevronDown, CircleHelp, Code2,
-  Expand, Focus, Github, Image as ImageIcon, Info, Layers2,
+  Copy, Expand, Focus, Github, Image as ImageIcon, Info, Keyboard, Layers2,
   Maximize2, Minus, MousePointer2, Plus, RotateCcw, Settings2, SlidersHorizontal,
   SquareDashedMousePointer, X,
 } from "lucide-react"
@@ -33,6 +33,7 @@ const descriptions: Record<Renderer, string> = {
 }
 const zoomPercent = (camera: Readonly<Camera>) => Math.round(camera.scale * 100)
 const fitPadding = (width: number) => Math.max(16, Math.min(76, width * .065))
+const galleryUrl = `${import.meta.env.BASE_URL}gallery.svg`
 const allowed = (mode: Renderer, scene: Scene) => scene === "vector" || mode.startsWith("css-")
 const tag = (mode: Renderer) => MODES.find(item => item.id === mode)!.tag
 
@@ -61,6 +62,40 @@ function StageControls() {
     <button aria-label="Fit artwork" title="Fit artwork" onClick={() => engine.fit(ART, fitPadding(engine.getViewport().width))}><Maximize2 size={15}/></button>
     <button aria-label="Reset to 100 percent" title="Reset to 100%" onClick={() => engine.setCamera({ x: 0, y: 0, scale: 1 }, true)}><RotateCcw size={15}/></button>
   </div>
+}
+
+function CopyCameraButton() {
+  const engine = useZoomPort()
+  const [message, setMessage] = React.useState("Copy camera")
+  const copy = async () => {
+    const { x, y, scale } = engine.getSnapshot()
+    try {
+      await navigator.clipboard.writeText(JSON.stringify({ x, y, scale }, null, 2))
+      setMessage("Camera copied")
+    } catch {
+      setMessage("Clipboard unavailable")
+    }
+  }
+  return <button className="tool-button copy-camera" onClick={() => { void copy() }}
+    aria-label="Copy current camera as JSON" title="Copy current camera as JSON">
+    <Copy size={14}/><span>{message}</span>
+  </button>
+}
+function ShortcutHelp() {
+  return <details className="shortcut-help">
+    <summary className="tool-button" aria-label="View keyboard shortcuts" title="Keyboard shortcuts">
+      <Keyboard size={15}/>
+    </summary>
+    <div className="shortcut-popover">
+      <strong>Keyboard shortcuts</strong>
+      <div><span>Pan</span><kbd>Arrow keys</kbd></div>
+      <div><span>Zoom</span><kbd>+</kbd><kbd>−</kbd></div>
+      <div><span>Fit artwork</span><kbd>0</kbd></div>
+      <div><span>Move canvas</span><span>Drag / touch</span></div>
+      <div><span>Zoom at cursor</span><span>Wheel / pinch</span></div>
+      <p>Focus the viewport first to use keyboard camera controls.</p>
+    </div>
+  </details>
 }
 
 /** The inspector reads genuine live element properties rather than repeating selection state. */
@@ -147,13 +182,13 @@ function SceneSurface({ renderer, scene }: { renderer: Renderer; scene: Scene })
       <ZoomPort.SVGContent><VectorScene /></ZoomPort.SVGContent>
     </svg>
   if (scene === "gallery" && renderer === "css-resize")
-    return <ZoomPort.Image data-zoomport-renderer={renderer} data-testid="native-image-surface" src="/gallery.svg"
+    return <ZoomPort.Image data-zoomport-renderer={renderer} data-testid="native-image-surface" src={galleryUrl}
       alt="Zoomable gallery artwork" intrinsicWidth={ART.width} intrinsicHeight={ART.height} draggable={false}/>
   return <ZoomPort.Content className="artboard" data-zoomport-renderer={renderer} data-testid="css-renderer"
     style={{ width: ART.width, height: ART.height }}
     renderMode={renderer as CssRenderMode} intrinsicSize={ART}>
     {scene === "vector" ? <VectorScene responsive={renderer === "css-hybrid" || renderer === "css-resize"}/>
-      : <img className="gallery-image" src="/gallery.svg" alt="Gallery artwork" draggable={false}/>}
+      : <img className="gallery-image" src={galleryUrl} alt="Gallery artwork" draggable={false}/>}
   </ZoomPort.Content>
 }
 function App() {
@@ -179,8 +214,8 @@ function App() {
   return <div className="app-shell">
     <header className="topbar">
       <div className="brand"><div className="brand-icon"><Focus size={18} strokeWidth={2.2}/></div><strong>ZoomPort</strong><span className="brand-divider"/><span className="brand-sub">Playground</span></div>
-      <nav className="top-links" aria-label="Navigation"><a href="#workspace" className="active">Playground</a><a href="/culling.html">100K Performance Lab</a><a href="/vanilla.html">Vanilla JS</a><a href="#architecture">Architecture</a></nav>
-      <div className="top-status"><span className="status-dot"/><span>Running in your browser</span><span className="version">v0.1</span></div>
+      <nav className="top-links" aria-label="Navigation"><a href="#workspace" className="active">Playground</a><a href="./culling.html">100K performance lab</a><a href="./vanilla.html">Vanilla JS</a><a href="#architecture">Architecture</a></nav>
+      <div className="top-status"><span className="status-dot"/><span>Running in your browser</span><a href="https://github.com/thelabcorner/zoomport" className="source-link" target="_blank" rel="noopener noreferrer" aria-label="ZoomPort source on GitHub"><Github size={14}/><span>GitHub</span></a><span className="version">v0.1</span></div>
     </header>
     <section className="intro-bar"><div className="intro-content"><div className="kicker">ZoomPort / Interactive workbench</div>
       <h1>One camera. <span>Every canvas.</span></h1>
@@ -208,6 +243,8 @@ function App() {
         <main className="workspace" aria-label="ZoomPort workspace">
           <div className="workspace-top"><div className="workspace-title"><MousePointer2 size={15}/><strong>Workspace</strong><span className="crumb">/</span><span>{scene === "vector" ? "Vector canvas" : "Image gallery"}</span></div>
             <div className="workspace-actions">
+              <CopyCameraButton/>
+              <ShortcutHelp/>
               <label className="smooth-toggle"><input type="checkbox" checked={smooth} onChange={e => setSmooth(e.target.checked)}/> Smooth motion</label>
               <button className={"tool-button " + (showInspector ? "is-active" : "")} title="Toggle inspector" aria-label="Toggle inspector" aria-pressed={showInspector} onClick={() => setShowInspector(v=>!v)}><Settings2 size={15}/></button>
               <button className={"tool-button " + (showCode ? "is-active" : "")} title="Toggle integration snippet" aria-label="Toggle integration snippet" aria-pressed={showCode} onClick={() => setShowCode(v=>!v)}><Code2 size={15}/></button>

@@ -38,18 +38,81 @@
     .status b{color:#242b22}.mobile-menu{display:none}
     @media(max-width:950px){.workspace{grid-template-columns:minmax(0,1fr)}.panel{display:none}.mobile-menu{display:block}.crumb{display:none}.canvas-header{padding:0 10px}.canvas-footer{padding:0 10px}.app{grid-template-rows:51px minmax(0,1fr) 32px}.top{padding:0 13px}.status{padding:0 12px}.live{font-size:10px}}
   </style>
+<style>
+  /* Compact zinc UI, aligned with the primary workbench. */
+  :root { font-size: 13px; color-scheme: light; font-variant-numeric: tabular-nums; }
+  .app { grid-template-rows: 48px minmax(0, 1fr) 30px; }
+  .top { padding-inline: 14px; justify-content: flex-start; gap: 20px; }
+  .brand { font-size: 14px; font-weight: 600; letter-spacing: -.015em; gap: 4px; }
+  .brand-home { display: inline-flex; align-items: center; gap: 7px; color: inherit; text-decoration: none; }
+  .brand-mark { width: 26px; height: 26px; border: 0; border-radius: 6px; font-size: 16px; }
+  .crumb { margin-left: 8px; }
+  .mini-nav { display: flex; gap: 16px; align-items: center; }
+  .mini-nav a { color: #71717a; text-decoration: none; font-size: 11.5px; font-weight: 520; }
+  .mini-nav a:hover { color: #18181b; }
+  .live { margin-left: auto; font-weight: 480; }
+  .workspace { grid-template-columns: 220px minmax(0, 1fr) 240px; }
+  .group { padding: 13px 12px; }
+  .eyebrow { letter-spacing: 0; text-transform: none; font-size: 11px; font-weight: 550; margin-bottom: 8px; }
+  .head { font-size: 20px; letter-spacing: -.025em; font-weight: 600; }
+  .help { line-height: 1.55; }
+  .mode-list { gap: 1px; }
+  .mode { border: 0; border-radius: 5px; padding: 9px; min-height: 36px; font-weight: 520; }
+  .mode.active { background: #ebeee4; }
+  .mode em { font-size: 10px; }
+  .canvas-wrap { grid-template-rows: 38px minmax(0,1fr) 44px; }
+  .canvas-header, .canvas-footer { padding-inline: 11px; }
+  .header-left { font-size: 11.5px; font-weight: 550; }
+  .btn { height: 29px; min-width: 29px; border-radius: 5px; font-weight: 550; }
+  .btn-primary { background: #ecf3d8; border-color: #d5e2ae; }
+  .btn-primary:hover { background: #e4edc8; }
+  .readout { font-weight: 600; }
+  .meta { padding-block: 7px; }
+  .meta strong { font-family: inherit; font-size: 10.5px; font-weight: 550; font-variant-numeric: tabular-nums; }
+  .tag { border-radius: 4px; font-weight: 550; padding: 3px 6px; }
+  .status { padding-inline: 13px; }
+  .status a { color: #52525b; text-decoration: none; }
+  button:focus-visible, select:focus-visible, a:focus-visible, #viewport:focus-visible { outline: 2px solid #607e29; outline-offset: 2px; }
+  @media (max-width:950px) {
+    .top { padding-inline: 10px; gap: 9px; }
+    .mini-nav { display: none; }
+    .app { grid-template-rows: 46px minmax(0,1fr) 28px; }
+    .workspace { grid-template-rows: minmax(0,1fr) auto; }
+    .panel-right { display: block; max-height: 139px; overflow: auto; border-left: 0; border-top: 1px solid #e4e4e7; }
+    .panel-right > .group:first-child, .panel-right > .group:last-child { display: none; }
+    .panel-right > .group:nth-child(2) { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 0 14px; padding: 7px 10px; }
+    .panel-right .meta { font-size: 10.5px; }
+    .panel-right .meta strong { max-width: none; }
+    .app { width: 100%; max-width: 100vw; min-width: 0; overflow-x: clip; }
+    .workspace, .top, .canvas-header, .canvas-footer { min-width: 0; max-width: 100%; }
+    .canvas-footer > .tiny { display: none; }
+    .canvas-wrap { min-height: 250px; min-width: 0; }
+    .canvas-header .tag, .canvas-header .tiny { display: none; }
+    .canvas-header .header-left { min-width: 0; }
+    .canvas-header .actions { min-width: 0; }
+    #mobile-renderer { min-width: 100px; max-width: 146px; }
+    .top .brand { min-width: 0; }
+    .top .live { font-size: 10px; }
+    .status { padding-inline: 9px; font-size: 9.5px; }
+    .brand { font-size: 13px; }
+  }
+  @media (max-width: 390px) {
+    .live { font-size: 9.5px; }
+    .panel-right > .group:nth-child(2) { grid-template-columns: 1fr; }
+  }
+</style>
 </head>
 <body>
 <main class="app">
-  <header class="top"><div class="brand"><span class="brand-mark">↗</span>ZoomPort <span class="crumb">/ Vanilla JS studio</span></div><div class="live"><span class="dot"></span> React-free · Live camera</div></header>
+  <header class="top"><div class="brand"><a class="brand-home" href="./index.html" aria-label="ZoomPort playground"><span class="brand-mark">↗</span>ZoomPort</a><span class="crumb">/ Vanilla JS</span></div><nav class="mini-nav" aria-label="Other demos"><a href="./index.html">Playground</a><a href="./culling.html">100K lab</a></nav><div class="live"><span class="dot"></span> React-free · Live camera</div></header>
   <div class="workspace">
     <aside class="panel panel-left">
-      <section class="group"><p class="eyebrow">Framework independent</p><h1 class="head">The camera is yours.</h1><p class="help">A first-class pan + zoom workbench. The same gestures and rendering pipeline as the React primitives—without React.</p></section>
+      <section class="group"><p class="eyebrow">Framework independent</p><h1 class="head">Native DOM camera.</h1><p class="help">A first-class pan + zoom workbench. The same gestures and rendering pipeline as the React primitives—without React.</p></section>
       <section class="group"><p class="eyebrow">Renderer</p><div class="mode-list" id="renderers"></div></section>
       <section class="group"><p class="eyebrow">Controls</p><p class="help">Pinch to zoom. Drag to pan. Scroll or Ctrl + wheel to navigate. Press 0 to fit, arrows to pan.</p></section>
     </aside>
     <section class="canvas-wrap" aria-label="Interactive artboard">
-      <div class="canvas-header"><div class="header-left">Artboard <span class="tiny">1200 × 800 · vector scene</span></div><div class="actions"><select id="mobile-renderer" class="mobile-menu" aria-label="Rendering strategy"><option value="css-transform">CSS Transform</option><option value="css-hybrid">CSS Hybrid</option><option value="css-layout">CSS Layout</option><option value="css-resize">CSS Resize</option></select><span class="tag">WORLD 01</span></div></div>
+      <div class="canvas-header"><div class="header-left">Artboard <span class="tiny">1200 × 800 · vector scene</span></div><div class="actions"><select id="mobile-renderer" class="mobile-menu" aria-label="Rendering strategy"><option value="css-transform">CSS Transform</option><option value="css-hybrid">CSS Hybrid</option><option value="css-layout">CSS Layout</option><option value="css-resize">CSS Resize</option></select><span class="tag">Scene 01</span></div></div>
       <div id="viewport" aria-label="Zoomable design canvas"><div id="content">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" aria-label="ZoomPort vector artwork">
           <rect width="1200" height="800" fill="#f8f9f6"/>
@@ -74,7 +137,7 @@
     </section>
     <aside class="panel panel-right"><section class="group"><p class="eyebrow">Live inspector</p><h2 class="head">Native signals.</h2><p class="help">Inspect real camera parameters and browser renderer properties.</p></section><section class="group" id="inspector"></section><section class="group"><p class="eyebrow">No framework tax</p><p class="help"><span class="tag">0 React imports</span> &nbsp; Just HTML, CSS and TypeScript.</p></section></aside>
   </div>
-  <footer class="status"><span><b>ZoomPort</b> / Universal viewport / Vanilla adapter</span><span>ZOOM / PAN / RENDER / 2026</span></footer>
+  <footer class="status"><span><b>ZoomPort</b> / Universal viewport / Vanilla adapter</span><a href="./index.html">React playground ↗</a></footer>
 </main>
 <script type="module" src="/src/vanilla.ts"></script>
 </body>

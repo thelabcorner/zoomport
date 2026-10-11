@@ -36,26 +36,88 @@
 .status b{color:#27272a}#mode-mobile{display:none;padding:6px;border:1px solid #ddd;border-radius:6px;background:#fff;font-size:11px;max-width:150px}
 @media(max-width:950px){.workspace{grid-template-columns:minmax(0,1fr)}.side{display:none}#mode-mobile{display:block}.crumb{display:none}.top{padding:0 12px}.toolbar,.bottom{padding:0 9px}.app{grid-template-rows:50px minmax(0,1fr) 30px}.status{padding:0 10px}.muted.desktop{display:none}}
 </style>
+<style>
+  /* Compact New York/zinc workbench, paired with the main playground. */
+  :root { color-scheme: light; font-variant-numeric: tabular-nums; }
+  .app { grid-template-rows: 48px minmax(0,1fr) 30px; }
+  .top { padding-inline: 14px; justify-content: flex-start; gap: 20px; }
+  .brand { font-size: 14px; font-weight: 600; letter-spacing: -.015em; gap: 4px; }
+  .brand-home { display: inline-flex; align-items: center; gap: 7px; text-decoration: none; color: inherit; }
+  .symbol { width: 26px; height: 26px; border-radius: 6px; border: 0; font-size: 16px; }
+  .crumb { margin-left: 8px; font-weight: 450; }
+  .mini-nav { display: flex; align-items: center; gap: 16px; }
+  .mini-nav a { font-size: 11.5px; font-weight: 520; text-decoration: none; color: #71717a; }
+  .mini-nav a:hover { color: #18181b; }
+  .live { margin-left: auto; font-weight: 480; }
+  .workspace { grid-template-columns: 220px minmax(0,1fr) 240px; }
+  .section { padding: 13px 12px; }
+  .eyebrow { font-size: 11px; font-weight: 550; letter-spacing: 0; text-transform: none; margin-bottom: 8px; }
+  .title { font-size: 20px; letter-spacing: -.025em; line-height: 1.2; font-weight: 600; margin-bottom: 9px; }
+  .desc { line-height: 1.55; }
+  .option { min-height: 42px; padding: 7px 8px; margin: 1px 0; font-weight: 550; border: 0; border-radius: 5px; }
+  .option.active { background: #ebeee4; }
+  .option small { margin-top: 2px; }
+  .center { grid-template-rows: 38px minmax(0,1fr) 44px; }
+  .toolbar, .bottom { padding-inline: 11px; }
+  .bar-title { font-size: 11.5px; font-weight: 550; }
+  .btn { height: 29px; min-width: 29px; font-weight: 550; border-radius: 5px; }
+  .btn.main { background: #edf2df; border-color: #d2dfb5; }
+  .btn.main:hover { background: #e6eed1; }
+  .zoom { font-weight: 600; }
+  .meta { padding-block: 8px; gap: 5px; }
+  .meta strong { font-family: inherit; font-size: 10.5px; font-weight: 550; }
+  .huge { font-size: 28px; letter-spacing: -.025em; font-weight: 600; }
+  .pill { background: #eff3e6; font-size: 10px; font-weight: 550; }
+  .status { padding-inline: 13px; font-size: 10px; }
+  .status a { text-decoration: none; color: #52525b; }
+  button:focus-visible, select:focus-visible, a:focus-visible, #viewport:focus-visible { outline: 2px solid #607e29; outline-offset: 2px; }
+  @media (max-width: 950px) {
+    .app { grid-template-rows: 46px minmax(0,1fr) 28px; }
+    .top { padding-inline: 10px; gap: 9px; }
+    .mini-nav { display: none; }
+    .workspace { grid-template-rows: minmax(0,1fr) 129px; }
+    .right { display: block; max-height: 129px; overflow-y: auto; border-left: 0; border-top: 1px solid #e4e4e7; }
+    .right .section:first-child { padding: 8px 11px; display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); align-items: baseline; column-gap: 10px; }
+    .right .section:first-child > .eyebrow, .right .section:first-child > .huge, .right .section:first-child > .unit { grid-column: 1; }
+    .right .section:last-child { display: none; }
+    .right .meta { margin: 0; padding-block: 5px; }
+    .right .meta strong { white-space: nowrap; }
+    .app { width: 100%; max-width: 100vw; min-width: 0; overflow-x: clip; }
+    .workspace, .top, .toolbar, .bottom { min-width: 0; max-width: 100%; }
+    .bottom .muted { display: none; }
+    .center { min-height: 240px; min-width: 0; }
+    .toolbar .pill { display: none; }
+    .bar-title { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+    #mode-mobile { min-width: 100px; max-width: 145px; flex: none; }
+    .top .brand { min-width: 0; }
+    .status { padding-inline: 9px; }
+  }
+  @media (max-width: 500px) {
+    .right .section:first-child { grid-template-columns: repeat(2,minmax(0,1fr)); }
+    .bar-title .desktop, .status a { display: none; }
+    .live { font-size: 9.5px; }
+  }
+</style>
 </head>
 <body>
 <main class="app">
-<header class="top"><div class="brand"><span class="symbol">↗</span>ZoomPort <span class="crumb">/ 100K Performance Lab</span></div><div class="live"><span class="dot"></span>Spatial index + semantic LOD</div></header>
+<header class="top"><div class="brand"><a class="brand-home" href="./index.html" aria-label="ZoomPort playground"><span class="symbol">↗</span>ZoomPort</a><span class="crumb">/ 100K lab</span></div><nav class="mini-nav" aria-label="Other demos"><a href="./index.html">Playground</a><a href="./vanilla.html">Vanilla JS</a></nav><div class="live"><span class="dot"></span>Spatial index + semantic LOD</div></header>
 <div class="workspace">
 <aside class="side left">
- <section class="section"><p class="eyebrow">Real-world workload</p><h1 class="title">Scale without compromise.</h1><p class="desc">100,000 world-space objects. Move through a large canvas with spatial culling, conservative query caching, and semantic zoom.</p></section>
+ <section class="section"><p class="eyebrow">Real-world workload</p><h1 class="title">100,000 objects. One camera.</h1><p class="desc">100,000 world-space objects. Move through a large canvas with spatial culling, conservative query caching, and semantic zoom.</p></section>
  <section class="section"><p class="eyebrow">Render pipeline</p>
  <button class="option active" data-mode="adaptive"><span class="circle"></span><span>Adaptive index + LOD<small>Optimized overview and object detail</small></span></button>
  <button class="option" data-mode="indexed"><span class="circle"></span><span>Indexed culling only<small>Every visible primitive individually drawn</small></span></button>
  <button class="option" data-mode="naive"><span class="circle"></span><span>Naive full-scene loop<small>No spatial culling, benchmark control</small></span></button>
  </section><section class="section"><p class="eyebrow">Gestures</p><p class="desc">Scroll or pinch to zoom; drag or two-finger pan to navigate. Zoom into the lime neighborhoods to inspect every shape.</p></section>
 </aside>
-<section class="center"><div class="toolbar"><div class="bar-title">Infinite-world testbed <span class="muted desktop">/ 100,000 vector primitives</span></div><select id="mode-mobile" aria-label="Rendering strategy"><option value="adaptive">Adaptive index + LOD</option><option value="indexed">Indexed culling</option><option value="naive">Naive full-scene</option></select><span class="pill">LIVE BENCH</span></div>
+<section class="center"><div class="toolbar"><div class="bar-title">Infinite-world testbed <span class="muted desktop">/ 100,000 vector primitives</span></div><select id="mode-mobile" aria-label="Rendering strategy"><option value="adaptive">Adaptive index + LOD</option><option value="indexed">Indexed culling</option><option value="naive">Naive full-scene</option></select><span class="pill">Live scene</span></div>
 <div id="viewport" aria-label="Pan and zoom stress test"><canvas id="canvas"></canvas></div>
 <div class="bottom"><div class="controls"><button class="btn" id="out" aria-label="Zoom out">−</button><span class="zoom" id="zoom">100%</span><button class="btn" id="in" aria-label="Zoom in">+</button><button class="btn main" id="fit">Fit world</button></div><span class="muted" id="hint">Dynamic LOD enabled</span></div>
 </section>
 <aside class="side right"><section class="section"><p class="eyebrow">Scene telemetry</p><div class="huge" id="visible">—</div><span class="unit">draw operations · latest frame</span><div class="meta"><span>Scene objects</span><strong>100,000</strong></div><div class="meta"><span>Index candidates</span><strong id="candidates">—</strong></div><div class="meta"><span>Spatial queries</span><strong id="queries">0</strong></div><div class="meta"><span>Skipped object draws</span><strong id="skipped">—</strong></div><div class="meta"><span>LOD</span><strong id="lod">—</strong></div><div class="meta"><span>Draw CPU (last)</span><strong id="drawtime">—</strong></div><div class="meta"><span>Camera scale</span><strong id="scale">—</strong></div></section><section class="section"><p class="eyebrow">How this works</p><p class="desc">A median-partitioned bounding-volume hierarchy finds nearby shapes. A camera-sized guard band reuses visibility while you pan. At low zoom, tile-like summaries replace subpixel geometry. No 100K React component tree.</p></section></aside>
 </div>
-<footer class="status"><span><b>ZoomPort</b> / Performance laboratory · Canvas 2D</span><span>100K OBJECTS / WORLD SPACE</span></footer>
+<footer class="status"><span><b>ZoomPort</b> / Performance laboratory · Canvas 2D</span><a href="./index.html">React playground ↗</a></footer>
 </main>
 <script type="module" src="/src/culling.ts"></script>
 </body></html>

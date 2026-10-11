@@ -68,3 +68,53 @@
   .hud button { width: 36px; height: 37px; }
   .zoom-readout { min-width: 51px; }
 }
+
+/* One real viewport remains primary at every width; controls stay reachable. */
+@media (max-width: 980px) {
+  .workbench { height: auto; min-height: 0; }
+  .library { overflow: visible; }
+  .library-subheading { padding-top: 9px; }
+  .renderer-list { scrollbar-width: none; }
+  .renderer-list::-webkit-scrollbar { display: none; }
+  .renderer-item { min-height: 34px; padding: 5px 9px; border-radius: 5px; }
+  .renderer-item.selected, .example.selected { border-color: #c5d1b7; }
+  .example { min-height: 36px; }
+  .copy-camera > span { display: none; }
+  .canvas-shell { flex: none; }
+  .inspector { overflow: visible; }
+  .value-row { gap: 6px; }
+}
+@media (max-width: 740px) {
+  .topbar { height: 46px; padding-inline: 12px; }
+  .source-link { padding-inline: 4px; }
+  .source-link span { display: none; }
+  .intro-bar { padding: 12px 14px 13px; }
+  .intro-content h1 { font-size: 24px; letter-spacing: -.025em; }
+  .intro-content p { font-size: 11.5px; }
+  .library .example-list { padding: 7px 10px 0; }
+  .library-subheading { padding: 8px 10px 4px; }
+  .renderer-list { padding: 4px 10px 8px; }
+  .workspace-top, .preview-top { min-height: 38px; padding-inline: 10px; }
+  .workspace-title { gap: 5px; }
+  .workspace-actions { gap: 4px; }
+  .tool-button { width: 28px; height: 28px; }
+  .copy-camera { padding: 0; justify-content: center; }
+  .shortcut-popover { right: -62px; max-width: calc(100vw - 18px); }
+  .canvas-shell { height: min(60dvh, 610px); min-height: 335px; margin: 8px 10px 0; }
+  .viewport-caption { margin: 0 10px; }
+  .viewport-note { max-width: calc(100% - 95px); }
+  .inspector-intro { padding: 12px; }
+  .inspector-section { grid-template-columns: 1fr; }
+  .value-row { padding: 8px 12px; }
+  .inspector-note { margin-top: 10px; }
+  .operation-box { margin-inline: 10px; }
+  .site-footer { gap: 5px; }
+}
+@media (max-width: 400px) {
+  .intro-content h1 { font-size: 22px; }
+  .workspace-title > svg, .workspace-title .crumb { display: none; }
+  .preview-heading .status-dot { display: inline-block; }
+  .renderer-picker select { min-width: 138px; max-width: 170px; }
+  .canvas-shell { min-height: 320px; }
+  .shortcut-popover { right: -89px; }
+}

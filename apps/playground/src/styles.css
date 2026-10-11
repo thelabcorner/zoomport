@@ -160,3 +160,101 @@ svg { flex-shrink: 0; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
+
+/* Compact engineering-workbench shell — WebSeal/New York zinc grammar. */
+:root {
+  --ink: #18181b;
+  --muted: #71717a;
+  --border: #e4e4e7;
+  --inset: #f4f4f5;
+  --surface: #fff;
+}
+html { scroll-behavior: smooth; }
+body { font-variant-numeric: tabular-nums; }
+.topbar { height: 48px; padding-inline: 18px; gap: 22px; }
+.brand-icon { width: 26px; height: 26px; border-radius: 6px; }
+.brand strong { font-weight: 600; letter-spacing: -.015em; }
+.top-links { gap: 20px; }
+.top-links a { font-size: 12px; }
+.top-status { gap: 9px; }
+.source-link { display: inline-flex; align-items: center; gap: 5px; height: 28px; border-radius: 5px; padding: 0 7px; color: #52525b; }
+.source-link:hover { background: var(--inset); color: var(--ink); }
+.source-link:focus-visible { outline: 2px solid #7a9c34; outline-offset: 2px; }
+.version { margin-left: 0; }
+.intro-bar { padding: 13px 20px 14px; align-items: center; }
+.intro-content h1 { margin: 4px 0 3px; font-size: clamp(22px, 2.2vw, 27px); letter-spacing: -.035em; font-weight: 600; line-height: 1.18; }
+.intro-content p { font-size: 12px; }
+.intro-aside { gap: 5px; }
+.meta-chip { padding: 4px 7px; font-weight: 550; background: #f0f3e9; }
+.workbench { min-height: 625px; height: clamp(625px, calc(100dvh - 137px), 1000px); }
+.library { width: 232px; flex-basis: 232px; overflow-y: auto; scrollbar-width: thin; }
+.inspector { width: 256px; flex-basis: 256px; overflow-y: auto; scrollbar-width: thin; }
+.section-title { height: 36px; flex-basis: 36px; padding-inline: 12px; }
+.library-desc { padding: 11px 12px 8px; }
+.library-subheading { padding: 14px 12px 7px; }
+.library-desc strong { font-weight: 600; }
+.example-list, .renderer-list { padding-inline: 6px; }
+.example { min-height: 45px; padding: 7px 8px; align-items: center; gap: 8px; }
+.example span { gap: 2px; }
+.example strong, .renderer-copy strong { font-weight: 550; }
+.example small, .renderer-copy small { font-size: 10.5px; }
+.example.selected, .renderer-item.selected { background: #ebeee4; }
+.renderer-item { min-height: 40px; padding: 5px 8px; gap: 8px; }
+.renderer-copy { gap: 2px; }
+.renderer-kind { font-size: 9px; background: #eeeeef; }
+.renderer-item.selected .renderer-kind { background: #dde8ce; }
+.library-foot { padding: 11px 12px; }
+.workspace-top, .preview-top { min-height: 36px; padding-inline: 12px; }
+.workspace-title, .preview-heading { font-size: 11.5px; }
+.workspace-actions { gap: 5px; }
+.smooth-toggle { gap: 6px; font-size: 11px; }
+.tool-button { height: 28px; width: 28px; border-radius: 5px; flex: none; }
+.tool-button:focus-visible, .hud button:focus-visible { outline: 2px solid #658600; outline-offset: 2px; }
+.tool-button.is-active { background: #ebeee4; }
+.copy-camera { width: auto; min-width: 28px; padding: 0 8px; display: flex; align-items: center; gap: 6px; white-space: nowrap; font-size: 11px; }
+.shortcut-help { position: relative; }
+.shortcut-help > summary { list-style: none; display: grid; place-items: center; cursor: pointer; }
+.shortcut-help > summary::-webkit-details-marker { display: none; }
+.shortcut-help[open] > summary { background: #ebeee4; }
+.shortcut-popover { position: absolute; z-index: 60; top: 34px; right: 0; width: 244px; background: #fff; border: 1px solid var(--border); box-shadow: 0 8px 22px #18181b18; padding: 10px 12px; border-radius: 7px; font-size: 11px; color: #52525b; }
+.shortcut-popover > strong { display: block; font-size: 12px; color: var(--ink); margin-bottom: 7px; font-weight: 600; }
+.shortcut-popover > div { display: flex; align-items: center; gap: 4px; min-height: 27px; border-top: 1px solid #f1f1f3; }
+.shortcut-popover > div > span:first-child { margin-right: auto; }
+.shortcut-popover kbd { font-family: inherit; font-weight: 550; border-radius: 4px; background: #f4f4f5; padding: 3px 5px; color: #3f3f46; }
+.shortcut-popover p { margin: 8px 0 0; font-size: 10.5px; line-height: 1.45; }
+.renderer-picker select { height: 28px; padding-block: 4px; }
+.canvas-shell { height: auto; min-height: 390px; flex: 1 1 auto; margin: 10px 12px 0; border-radius: 8px; }
+.viewport { background-color: #edf0eb; background-image: linear-gradient(#e0e5dc 1px, transparent 1px), linear-gradient(90deg, #e0e5dc 1px, transparent 1px); }
+.viewport-note { top: 10px; left: 10px; font-size: 10.5px; border-color: #e4e4e7; }
+.expand-button { top: 10px; right: 10px; height: 28px; }
+.hud { bottom: 12px; padding: 3px; border-color: #e4e4e7; }
+.hud button { width: 31px; height: 30px; }
+.viewport-caption { min-height: 30px; margin-inline: 12px; }
+.workspace-foot { padding: 8px 12px; font-size: 10px; }
+.snippet { margin: 8px 12px; }
+.snippet-head { padding: 7px 10px; min-height: 30px; }
+.snippet pre { padding: 10px 12px; }
+.inspector-intro { padding: 13px 12px 12px; }
+.inspector-adapter { font-size: 14px; font-weight: 600; }
+.inspector-intro p { margin: 5px 0 11px; line-height: 1.5; font-size: 11px; }
+.adapter-pill { padding: 4px 7px; }
+.inspector-heading { padding: 13px 12px 7px; }
+.value-row { flex-direction: row; align-items: baseline; justify-content: space-between; gap: 10px; padding: 8px 12px; }
+.value-row > span { flex: none; color: #71717a; font-size: 10.5px; }
+.value-row strong, .value-row output { text-align: right; min-width: 0; font-size: 10.5px; }
+.operation-box { margin: 0 10px; padding: 10px; border-radius: 6px; line-height: 1.6; overflow-wrap: anywhere; }
+.inspector-note { padding: 0 12px; }
+.inspector-bottom { padding: 12px; }
+.architecture { padding-block: 30px; }
+.architecture-heading h2 { font-weight: 600; }
+.architecture-grid { margin-top: 20px; }
+.architecture-grid > div { min-height: 142px; padding: 14px; }
+.architecture-grid strong { font-weight: 600; }
+.architecture-icon { background: #eff1ea; }
+.site-footer { padding: 12px 20px; }
+@media (max-width: 1200px) and (min-width: 981px) {
+  .library { width: 209px; flex-basis: 209px; }
+  .inspector { width: 233px; flex-basis: 233px; }
+  .canvas-shell { height: auto; }
+  .copy-camera > span { display: none; }
+}
