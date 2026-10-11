@@ -1,0 +1,20 @@
+{
+  "name": "@zoomport/playground",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@zoomport/react": "0.1.0",
+    "@zoomport/dom": "0.1.0",
+    "@zoomport/core": "0.1.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "lucide-react": "^0.468.0"
+  },
+  "devDependencies": {}
+}

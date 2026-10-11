@@ -1,0 +1,51 @@
+{
+  "name": "@zoomport/dom",
+  "version": "0.1.0",
+  "description": "Zero-framework pan/zoom DOM interactions and rendering adapters",
+  "type": "module",
+  "sideEffects": false,
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./adapters": {
+      "types": "./dist/adapters.d.ts",
+      "import": "./dist/adapters.js"
+    },
+    "./input": {
+      "types": "./dist/input.d.ts",
+      "import": "./dist/input.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "dependencies": {
+    "@zoomport/core": "0.1.0"
+  },
+  "scripts": {
+    "build": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\" && tsc -p tsconfig.json && esbuild src/index.ts --bundle --format=iife --global-name=ZoomPort --platform=browser --target=es2022 --minify --outfile=dist/zoomport.global.js",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thelabcorner/zoomport.git",
+    "directory": "packages/dom"
+  },
+  "homepage": "https://github.com/thelabcorner/zoomport#readme",
+  "bugs": {
+    "url": "https://github.com/thelabcorner/zoomport/issues"
+  }
+}

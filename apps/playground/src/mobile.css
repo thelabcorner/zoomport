@@ -1,0 +1,70 @@
+/* Demo-only responsive chrome. No styles leak into ZoomPort's headless packages. */
+@media (max-width: 980px) {
+  .topbar { padding: 0 18px; gap: 20px; }
+  .workbench { flex-wrap: wrap; }
+  .library { flex: 0 0 100%; width: 100%; min-height: 0; border-right: 0; border-bottom: 1px solid var(--border); }
+  .library .section-title, .library-desc, .library-foot { display: none; }
+  .example-list { display: flex; flex-direction: row; padding: 8px 14px 0; gap: 7px; }
+  .example { width: auto; min-height: 43px; align-items: center; gap: 6px; padding: 8px 11px; background: #fff; border: 1px solid var(--border); }
+  .example.selected { border-color: #c9d6b5; }
+  .example small { display: none; }
+  .example svg { margin: 0; }
+  .example > svg:last-child:not(:first-child) { display: none; }
+  .library-subheading { padding: 12px 15px 5px; }
+  .renderer-list { flex-direction: row; gap: 6px; overflow-x: auto; padding: 4px 14px 10px; scrollbar-width: thin; }
+  .renderer-item { width: auto; min-width: max-content; min-height: 42px; border: 1px solid var(--border); background: #fff; gap: 7px; padding: 7px 9px; }
+  .renderer-item.selected { border-color: #aebc8e; }
+  .renderer-copy small, .renderer-kind { display: none; }
+  .workspace { flex: 1 1 65%; }
+  .inspector { width: 244px; flex: 0 0 244px; }
+  .canvas-shell { height: min(55vw, 560px); min-height: 430px; }
+}
+@media (max-width: 740px) {
+  .topbar { height: 50px; padding: 0 15px; gap: 10px; }
+  .top-links { display: none; }
+  .top-status { font-size: 10px; }
+  .version { display: none; }
+  .intro-bar { padding: 21px 16px 19px; }
+  .intro-content h1 { font-size: 27px; }
+  .intro-content p { font-size: 11.5px; max-width: 470px; }
+  .intro-aside { display: none; }
+  .workbench { display: flex; flex-direction: column; }
+  .library { flex-basis: auto; }
+  .workspace { width: 100%; min-height: 0; }
+  .workspace-top { padding: 0 12px; }
+  .preview-top { padding: 0 12px; }
+  .preview-heading { font-size: 11px; }
+  .preview-heading .preview-sep, .preview-heading > span:last-child { display: none; }
+  .renderer-picker { gap: 6px; }
+  .renderer-picker select { min-width: 142px; max-width: 173px; }
+  .smooth-toggle { display: none; }
+  .canvas-shell { margin: 12px 12px 0; height: min(61dvh, 590px); min-height: 390px; }
+  .viewport-caption { margin: 0 12px; }
+  .viewport-caption > span:last-child { display: none; }
+  .inspector { flex-basis: auto; width: 100%; border-left: 0; border-top: 1px solid var(--border); }
+  .inspector-intro { padding: 12px 16px; }
+  .inspector-intro p { max-width: 520px; }
+  .inspector-section { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .inspector-section .value-row { min-width: 0; }
+  .operation-box { min-height: 50px; }
+  .inspector-bottom { display: none; }
+  .architecture { padding: 32px 16px; }
+  .architecture-grid { grid-template-columns: 1fr; }
+  .architecture-grid > div { min-height: 135px; border-right: 0; border-bottom: 1px solid var(--border); }
+  .architecture-grid > div:last-child { border-bottom: 0; }
+  .site-footer { padding: 14px 16px; flex-wrap: wrap; }
+  .workspace-foot { padding: 12px; }
+}
+@media (max-width: 400px) {
+  .brand-sub, .brand-divider { display: none; }
+  .intro-content h1 { font-size: 25px; }
+  .preview-heading > span:not(.status-dot) { display: none; }
+  .renderer-picker select { min-width: 168px; max-width: 190px; }
+  .canvas-shell { min-height: 380px; }
+  .viewport-note { font-size: 9px; top: 10px; left: 10px; }
+  .expand-button { top: 10px; right: 10px; padding: 0 8px; }
+  .expand-button > span { display: none; }
+  .hud { bottom: max(12px, env(safe-area-inset-bottom)); }
+  .hud button { width: 36px; height: 37px; }
+  .zoom-readout { min-width: 51px; }
+}

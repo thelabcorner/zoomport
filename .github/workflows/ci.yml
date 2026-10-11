@@ -1,0 +1,66 @@
+name: ci
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [20, 22, 24]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - run: npm run check
+      - run: npm run bench
+  react-18-compat:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      # Keep the committed React 19 lockfile untouched while validating the
+      # advertised React 18 peer/runtime surface in a disposable CI install.
+      - run: npm install --no-save --package-lock=false --no-audit --no-fund react@18.3.1 react-dom@18.3.1 @types/react@18.3.27 @types/react-dom@18.3.7
+      - run: npm run check
+  browser-geometry:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - run: npx playwright install --with-deps chromium firefox webkit
+      - run: npm run test:browser
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-regression-artifacts
+          path: test-results/
+          retention-days: 14
+  pack:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - run: npm run build
+      - run: npm pack -w @zoomport/core --dry-run
+      - run: npm pack -w @zoomport/dom --dry-run
+      - run: npm pack -w @zoomport/react --dry-run
+      - run: npm pack -w @zoomport/effect --dry-run

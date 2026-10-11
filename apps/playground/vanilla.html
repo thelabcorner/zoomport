@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f8f8f6">
+  <title>ZoomPort — Vanilla JS Studio</title>
+  <style>
+    :root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#17191b;background:#f8f8f6;font-synthesis:none}
+    *{box-sizing:border-box}body{margin:0}button,select{font:inherit}button{cursor:pointer}button:focus-visible,select:focus-visible,#viewport:focus-visible{outline:3px solid #87bb00;outline-offset:3px}
+    .app{height:100dvh;min-height:440px;display:grid;grid-template-rows:55px minmax(0,1fr) 37px}
+    .top{display:flex;align-items:center;justify-content:space-between;padding:0 21px;border-bottom:1px solid #e3e3e0;background:#fff;gap:15px}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:750;letter-spacing:-.065em;font-size:20px;white-space:nowrap}
+    .brand-mark{display:inline-grid;place-items:center;width:29px;height:29px;background:#aaff00;border:1px solid #95e300;border-radius:8px;font-size:19px}
+    .crumb{font-size:12px;color:#777c80;margin-left:20px;letter-spacing:0}
+    .live{display:flex;align-items:center;gap:7px;font-size:11px;color:#555c59;font-weight:600;white-space:nowrap}.dot{height:7px;width:7px;background:#72b300;border-radius:50%}
+    .workspace{display:grid;grid-template-columns:238px minmax(0,1fr) 258px;min-height:0}
+    .panel{background:#fff;min-width:0;overflow:auto}.panel-left{border-right:1px solid #e2e3e0}.panel-right{border-left:1px solid #e2e3e0}
+    .group{padding:19px 17px;border-bottom:1px solid #eee}.eyebrow{color:#8b9092;letter-spacing:.13em;font-size:10px;font-weight:800;text-transform:uppercase;margin:0 0 14px}
+    .head{font-size:22px;font-weight:690;letter-spacing:-.055em;margin:4px 0 7px}.help{font-size:12px;color:#71767a;line-height:1.65;margin:0}
+    .mode-list{display:flex;flex-direction:column;gap:5px}
+    .mode{display:flex;align-items:center;justify-content:space-between;border:1px solid transparent;background:#fff;border-radius:8px;padding:11px;text-align:left;font-size:12px;font-weight:580;color:#353a3a}
+    .mode.active{background:#eefdcc;border-color:#cded85;color:#202720}.mode em{font-style:normal;font-weight:500;color:#75816e;font-size:10px}
+    .canvas-wrap{min-width:0;min-height:0;display:grid;grid-template-rows:46px minmax(0,1fr) 50px;background:#e9ebe7}
+    .canvas-header,.canvas-footer{display:flex;align-items:center;justify-content:space-between;padding:0 16px;background:#fafbf8;gap:10px}
+    .canvas-header{border-bottom:1px solid #e0e3dc}.canvas-footer{border-top:1px solid #e0e3dc}
+    .header-left{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:650}.tiny{font-size:10px;color:#929994;font-weight:530}
+    #viewport{width:100%;height:100%;min-height:0;position:relative;overflow:hidden;touch-action:none;background-color:#e6eae4;background-image:radial-gradient(#c6cec3 0.8px,transparent .8px);background-size:19px 19px;cursor:grab}
+    #viewport:active{cursor:grabbing}
+    #content{position:absolute;left:0;top:0;width:1200px;height:800px;transform-origin:0 0}
+    #content svg{display:block;width:100%;height:100%}
+    .actions{display:flex;gap:5px;align-items:center}.btn{border:1px solid #daddd7;border-radius:7px;background:#fff;min-width:31px;height:31px;padding:0 9px;font-size:12px;color:#242824;font-weight:600}.btn:hover{background:#eff4e7}.btn-primary{background:#aaff00;border-color:#98ea05}.btn-primary:hover{background:#b8ff35}
+    .readout{font-size:12px;font-variant-numeric:tabular-nums;font-weight:750;width:65px;text-align:center}
+    .meta{display:grid;grid-template-columns:1fr auto;gap:10px;font-size:11px;padding:7px 0;border-bottom:1px solid #f1f1ef}.meta span{color:#82888b}.meta strong{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10px;font-weight:550;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:140px}
+    .tag{display:inline-flex;align-items:center;border-radius:6px;background:#ecf0ea;padding:5px 7px;font-size:11px;font-weight:600}
+    select{max-width:160px;padding:6px 7px;border:1px solid #dadfda;background:#fff;border-radius:6px;color:#202720;font-size:11px}
+    .status{padding:0 20px;display:flex;align-items:center;justify-content:space-between;background:#fff;border-top:1px solid #e0e1de;font-size:10px;color:#757d75}
+    .status b{color:#242b22}.mobile-menu{display:none}
+    @media(max-width:950px){.workspace{grid-template-columns:minmax(0,1fr)}.panel{display:none}.mobile-menu{display:block}.crumb{display:none}.canvas-header{padding:0 10px}.canvas-footer{padding:0 10px}.app{grid-template-rows:51px minmax(0,1fr) 32px}.top{padding:0 13px}.status{padding:0 12px}.live{font-size:10px}}
+  </style>
+</head>
+<body>
+<main class="app">
+  <header class="top"><div class="brand"><span class="brand-mark">↗</span>ZoomPort <span class="crumb">/ Vanilla JS studio</span></div><div class="live"><span class="dot"></span> React-free · Live camera</div></header>
+  <div class="workspace">
+    <aside class="panel panel-left">
+      <section class="group"><p class="eyebrow">Framework independent</p><h1 class="head">The camera is yours.</h1><p class="help">A first-class pan + zoom workbench. The same gestures and rendering pipeline as the React primitives—without React.</p></section>
+      <section class="group"><p class="eyebrow">Renderer</p><div class="mode-list" id="renderers"></div></section>
+      <section class="group"><p class="eyebrow">Controls</p><p class="help">Pinch to zoom. Drag to pan. Scroll or Ctrl + wheel to navigate. Press 0 to fit, arrows to pan.</p></section>
+    </aside>
+    <section class="canvas-wrap" aria-label="Interactive artboard">
+      <div class="canvas-header"><div class="header-left">Artboard <span class="tiny">1200 × 800 · vector scene</span></div><div class="actions"><select id="mobile-renderer" class="mobile-menu" aria-label="Rendering strategy"><option value="css-transform">CSS Transform</option><option value="css-hybrid">CSS Hybrid</option><option value="css-layout">CSS Layout</option><option value="css-resize">CSS Resize</option></select><span class="tag">WORLD 01</span></div></div>
+      <div id="viewport" aria-label="Zoomable design canvas"><div id="content">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" aria-label="ZoomPort vector artwork">
+          <rect width="1200" height="800" fill="#f8f9f6"/>
+          <g stroke="#dce2d8" stroke-width="1"><path d="M0 100H1200 M0 200H1200 M0 300H1200 M0 400H1200 M0 500H1200 M0 600H1200 M0 700H1200"/><path d="M100 0V800 M200 0V800 M300 0V800 M400 0V800 M500 0V800 M600 0V800 M700 0V800 M800 0V800 M900 0V800 M1000 0V800 M1100 0V800"/></g>
+          <rect x="75" y="76" width="1050" height="648" fill="#202622" rx="23"/>
+          <path d="M75 99Q75 76 98 76H1102Q1125 76 1125 99V187H75Z" fill="#aaff00"/>
+          <text x="116" y="142" font-size="32" font-weight="730" fill="#181d17" font-family="Arial,sans-serif">ZOOMPORT</text>
+          <text x="1068" y="138" font-size="14" fill="#243019" font-family="Arial,sans-serif" text-anchor="end">VISUAL CAMERA SYSTEM / 001</text>
+          <g stroke="#455147" stroke-width="1"><path d="M116 252H1080 M116 331H1080 M116 410H1080 M116 489H1080 M116 568H1080 M116 647H1080"/><path d="M200 220V680 M280 220V680 M360 220V680 M440 220V680 M520 220V680 M600 220V680 M680 220V680 M760 220V680 M840 220V680 M920 220V680 M1000 220V680"/></g>
+          <g transform="translate(640 445)">
+            <circle r="181" fill="#aaff00"/><circle r="143" fill="#202622"/><circle r="104" fill="#aaff00"/><circle r="64" fill="#202622"/><circle r="27" fill="#aaff00"/>
+            <path d="M-224 0H224M0 -224V224" stroke="#f8f9f6" stroke-width="3" stroke-dasharray="12 12"/>
+          </g>
+          <text x="121" y="286" fill="#f0f6e7" font-family="Arial,sans-serif" font-size="56" font-weight="750" letter-spacing="-3">PRECISION</text>
+          <text x="121" y="348" fill="#f0f6e7" font-family="Arial,sans-serif" font-size="56" font-weight="750" letter-spacing="-3">IN MOTION</text>
+          <text x="125" y="638" fill="#b7c4b4" font-family="Arial,sans-serif" font-size="18">PAN / PINCH / ZOOM / RENDER</text>
+          <text x="1080" y="683" text-anchor="end" fill="#aaff00" font-family="Arial,sans-serif" font-size="16" font-weight="bold">∞ FRAMEWORKS</text>
+          <g transform="translate(1034 293)"><rect width="54" height="54" rx="10" fill="#f7fff0"/><path d="M13 42L41 14M20 14h21v21" fill="none" stroke="#202622" stroke-width="5"/></g>
+        </svg>
+      </div></div>
+      <footer class="canvas-footer"><div class="actions"><button class="btn" id="zoom-out" aria-label="Zoom out">−</button><span id="zoom" class="readout">100%</span><button class="btn" id="zoom-in" aria-label="Zoom in">+</button><button class="btn btn-primary" id="fit">Fit artboard</button></div><span class="tiny" id="mode-label">CSS transform</span></footer>
+    </section>
+    <aside class="panel panel-right"><section class="group"><p class="eyebrow">Live inspector</p><h2 class="head">Native signals.</h2><p class="help">Inspect real camera parameters and browser renderer properties.</p></section><section class="group" id="inspector"></section><section class="group"><p class="eyebrow">No framework tax</p><p class="help"><span class="tag">0 React imports</span> &nbsp; Just HTML, CSS and TypeScript.</p></section></aside>
+  </div>
+  <footer class="status"><span><b>ZoomPort</b> / Universal viewport / Vanilla adapter</span><span>ZOOM / PAN / RENDER / 2026</span></footer>
+</main>
+<script type="module" src="/src/vanilla.ts"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+{
+  "name": "@zoomport/effect",
+  "version": "0.1.0",
+  "description": "Effect 4 scoped resource bindings for ZoomPort",
+  "type": "module",
+  "sideEffects": false,
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "peerDependencies": {
+    "effect": "^4.0.0"
+  },
+  "dependencies": {
+    "@zoomport/core": "0.1.0",
+    "@zoomport/dom": "0.1.0"
+  },
+  "scripts": {
+    "build": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\" && tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thelabcorner/zoomport.git",
+    "directory": "packages/effect"
+  },
+  "homepage": "https://github.com/thelabcorner/zoomport#readme",
+  "bugs": {
+    "url": "https://github.com/thelabcorner/zoomport/issues"
+  }
+}
