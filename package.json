@@ -19,6 +19,7 @@
     "dev": "npm run build -w @zoomport/core && npm run build -w @zoomport/dom && npm run build -w @zoomport/react && npm run dev -w @zoomport/playground",
     "dev:lan": "npm run build -w @zoomport/core && npm run build -w @zoomport/dom && npm run build -w @zoomport/react && npm run dev -w @zoomport/playground -- --host 0.0.0.0 --port 11274 --strictPort",
     "smoke:global": "node tools/smoke-global.mjs",
+    "export:vector-scene": "node tools/export-vector-scene.mjs",
     "check": "npm run typecheck && npm run test && npm run build && npm run smoke:global"
   },
   "devDependencies": {

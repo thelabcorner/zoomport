@@ -8,6 +8,8 @@ Headless pan/zoom camera physics with React components, vanilla DOM/SVG adapters
 
 **[Open the live playground](https://thelabcorner.github.io/zoomport/)** · [100K-object performance lab](https://thelabcorner.github.io/zoomport/culling.html) · [Vanilla JavaScript demo](https://thelabcorner.github.io/zoomport/vanilla.html)
 
+[![ZoomPort vector artwork: Zoom with intention, shown with fine linework, type and concentric geometry](apps/playground/public/vector-scene.svg)](https://thelabcorner.github.io/zoomport/)
+
 The demos run entirely in the browser and deploy from `.github/workflows/pages.yml`. They use the repository's actual camera, input, DOM, SVG, Canvas and culling code, not a separate simulated implementation.
 
 ## Why ZoomPort?
